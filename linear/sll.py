@@ -39,6 +39,27 @@ class SinglyListLinked:
             after_item.next = temp
             return True
         None
+    def delete_at_start(self):
+        if self.isEmpty():
+            return None
+        temp = self.head
+        temp.next = temp.next.next
+    def delete_at_end(self):
+        if self.isEmpty():
+            return None
+        temp = self.head
+        while temp.next.next is not None: 
+            temp = temp.next
+        temp.next = None
+    def delete_after(self,after_item):
+        if after_item is None:
+            return None
+        temp = self.head
+        while temp is not None:
+            if temp.next == after_item:
+                temp.next = after_item.next
+                return
+            temp = temp.next
     def display_list(self):
         if self.isEmpty():
             return print("List is empty")
@@ -46,13 +67,12 @@ class SinglyListLinked:
         while temp is not None:
             print(temp.item,end=" -> ")
             temp = temp.next
-        
+    def __iter__(self): #create a iterable object
+        temp = self.head
+        while temp is not None:
+            yield temp.item # return single value at a time and maintain function's state
+            temp = temp.next
         
 
 sll = SinglyListLinked()
-sll.insert_at_start(20)
-sll.insert_at_start(10)
-sll.insert_at_end(30)
-sll.insert_at_end(40)
-sll.insert_after(35, sll.search(30))
-sll.display_list()
+
